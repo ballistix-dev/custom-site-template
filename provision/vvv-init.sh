@@ -103,6 +103,13 @@ if [ ! -z "${WP_PLUGINS}" ]; then
     done
 fi
 
+WP_THEMES=`get_config_value 'install_themes' ''`
+if [ ! -z "${WP_THEMES}" ]; then
+    for theme in ${WP_THEMES//- /$'\n'}; do 
+        noroot wp theme install "${theme}"
+    done
+fi
+
 WP_LOCALE=`get_config_value 'locale' ''`
 if [ ! -z "${WP_LOCALE}" ]; then
     noroot wp language core install "${WP_LOCALE}" 2>/dev/null 
