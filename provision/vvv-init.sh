@@ -103,15 +103,10 @@ if [ ! -z "${WP_PLUGINS}" ]; then
     done
 fi
 
-WP_THEMES=`get_config_value 'install_themes' ''`
-if [ ! -z "${WP_THEMES}" ]; then
-    for theme in ${WP_THEMES//- /$'\n'}; do 
-        noroot wp theme install "${theme}"
-    done
-    
-    noroot wp theme activate _ballistix
-    
-fi
+cd ${VVV_PATH_TO_SITE}/public_html/wp-content/themes
+git clone https://github.com/marcelbaduaballistix/_dash.git _dash
+git clone https://github.com/marcelbaduaballistix/_ballistix.git _ballistix
+noroot wp theme activate _ballistix
 
 WP_LOCALE=`get_config_value 'locale' ''`
 if [ ! -z "${WP_LOCALE}" ]; then
