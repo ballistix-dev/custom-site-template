@@ -108,6 +108,9 @@ if [ ! -z "${WP_THEMES}" ]; then
     for theme in ${WP_THEMES//- /$'\n'}; do 
         noroot wp theme install "${theme}"
     done
+    
+    noroot wp theme activate _ballistix
+    
 fi
 
 WP_LOCALE=`get_config_value 'locale' ''`
