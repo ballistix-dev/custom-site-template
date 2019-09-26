@@ -57,12 +57,6 @@ PHP
     noroot wp core ${INSTALL_COMMAND} --url="${DOMAIN}" --quiet --title="${SITE_TITLE}" --admin_name=admin --admin_email="admin@local.test" --admin_password="password"
     echo "WordPress was installed, with the username 'admin', and the password 'password' at admin@local.test"
     
-    # echo "Installing Ballstix SPE custom themes"
-    # cd ${VVV_PATH_TO_SITE}/public_html/wp-content/themes
-    # git clone https://github.com/marcelbaduaballistix/_dash.git _dash
-    # git clone https://github.com/marcelbaduaballistix/_ballistix.git _ballistix
-    # noroot wp theme activate _ballistix
-
     DELETE_DEFAULT_PLUGINS=`get_config_value 'delete_default_plugins' ''`
     if [ ! -z "${DELETE_DEFAULT_PLUGINS}" ]; then
         noroot wp plugin delete akismet
@@ -114,5 +108,11 @@ if [ ! -z "${WP_LOCALE}" ]; then
     noroot wp language core install "${WP_LOCALE}" 2>/dev/null 
     noroot wp site switch-language "${WP_LOCALE}" 2>/dev/null 
 fi
+
+echo "Installing Ballstix SPE custom themes"
+cd ${VVV_PATH_TO_SITE}/public_html/wp-content/themes
+git clone https://github.com/marcelbaduaballistix/_dash.git _dash
+git clone https://github.com/marcelbaduaballistix/_ballistix.git _ballistix
+noroot wp theme activate _ballistix
 
 echo "Site Template provisioner script completed"
